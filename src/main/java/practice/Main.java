@@ -22,8 +22,9 @@ public class Main {
         session.persist(movie3);
         session.getTransaction().commit();
 
-        session.getTransaction().begin();
+        session.beginTransaction();
         List<Movie> movies = session.createQuery("FROM Movie m", Movie.class).getResultList();
+        System.out.println("-".repeat(10));
         for (Movie movie : movies) {
             System.out.println(movie);
         }
@@ -38,17 +39,18 @@ public class Main {
         System.out.println("-".repeat(10));
         session.getTransaction().commit();
 
-        session.getTransaction().begin();
+        session.beginTransaction();
         Movie movieFindById = session.find(Movie.class, 1L);
         movieFindById.setTitle("Бременские музыканты");
         session.getTransaction().commit();
 
-        session.getTransaction().begin();
+        session.beginTransaction();
         Movie deleteMovie = session.find(Movie.class, 2L);
         session.remove(deleteMovie);
         session.getTransaction().commit();
 
         List<Movie> movieList = session.createQuery("FROM Movie m", Movie.class).getResultList();
+        System.out.println("-".repeat(10));
         for (Movie movie : movieList) {
             System.out.println(movie);
         }
